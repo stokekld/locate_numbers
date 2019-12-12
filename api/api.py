@@ -1,14 +1,21 @@
-from flask import Flask
-from flask_restful import Resource, Api
+from flask import Flask, request
+import csv
 
 app = Flask(__name__)
-api = Api(app)
 
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
+@app.route('/locate_numbers', methods = ['POST'])
+def hello_world():
 
-api.add_resource(HelloWorld, '/')
+    inputFile = request.files["numbers"]
+    inputFile.save("input.csv")
+
+    with open("input.csv") as csv_file:
+        csv_reader = csv.reader(csv_file)
+
+        for row in csv_reader:
+            print(row[0])
+
+    return 'Hello, World!'
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=9000, debug=True)
