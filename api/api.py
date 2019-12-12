@@ -5,7 +5,7 @@ import csv, phonenumbers
 app = Flask(__name__)
 
 @app.route('/locate_numbers', methods = ['POST'])
-def hello_world():
+def locate_numbers():
 
     if not "numbers" in request.files:
         return "No file", 400
